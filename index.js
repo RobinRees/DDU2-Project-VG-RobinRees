@@ -1,4 +1,4 @@
-function createDeck () {
+function createDeck() {
     const suits = ["Hearts", "Spades", "Diamonds", "Clubs"];
     const values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 
@@ -10,8 +10,29 @@ function createDeck () {
         }
     }
     return deck;
-};
+}
+
+function renderDeck(deck) {
+    const container = document.getElementById('deckContainer');
+
+    const suitSymbols = {
+        Hearts: '♥',
+        Spades: '♠',
+        Diamonds: '♦',
+        Clubs: '♣'
+    };
+
+    for (let i = 0; i < deck.length; i++) {
+        const card = deck[i];
+        const cardElement = document.createElement('div');
+        cardElement.classList.add('card', card.suit.toLowerCase());
+        cardElement.innerHTML = `
+            <div class="value">${card.value}</div>
+            <div class="suit">${suitSymbols[card.suit]}</div>
+        `;
+        container.appendChild(cardElement);
+    }
+}
 
 const deck = createDeck();
-console.log(deck);
-
+renderDeck(deck);
