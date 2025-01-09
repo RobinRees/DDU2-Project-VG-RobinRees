@@ -1,3 +1,10 @@
+body {
+    margin: 0px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
 #deckContainer {
     display: flex;
     flex-wrap: wrap;
@@ -5,8 +12,8 @@
 }
 
 .card {
-    width: 100px;
-    height: 150px;
+    width: 75px;
+    height: 120px;
     border: 2px solid #000;
     border-radius: 8px;
     display: flex;
@@ -24,4 +31,88 @@
 
 .spades, .clubs {
     color: black;
+}
+
+#dealer {
+    height: 50%;
+    background-color: green;
+    border-bottom: 3px orange solid;
+    box-sizing: border-box;
+}
+
+#player {
+    height: 50%;
+    background-color: green;
+    box-sizing: border-box;
+
+}
+
+#playerCardGrid, #dealerCardGrid {
+    background-color: black;
+    width: 750px;
+    height: 120px;
+    display: grid;
+    grid-template-columns: repeat(10, 75px);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+#amountOfMoney {
+    height: 150px;
+    background-color: rgba(0, 0, 0, 0.664);
+    width: 200px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    font-size: 20;
+    text-align: center;
+    color: white;
+}
+
+#amountInText {
+    font-size: 50px;
+
+}
+
+#buttonInterface {
+    height: 200px;
+    width: 500px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: pink; 
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#hitButton, #stopButton {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    line-height: 1.5;
+    background-color: black;
+    color: white;
+    border-radius: 99rem;
+    height: 100px;
+    width: 200px;
+    font-size: 50px;
+}
+
+#hitButton {
+    background-color: rgb(49, 233, 49);
+}
+
+#hitButton:hover {
+    background-color: rgb(76, 204, 76);
+}
+
+#stopButton {
+    background-color: red;
 }

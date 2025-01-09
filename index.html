@@ -6,8 +6,33 @@
     <title>Black Jack</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-    <div id="deckContainer"></div>
+    
 <body>
+    <div id="dealer">
+        <div id="deckContainer"></div>
+
+        <div id="dealerCardGrid">
+        </div>
+    </div>
+
+    <div id="player">
+        <div id="playerCardGrid">
+        </div>
+        <div id="amountOfMoney">
+            <p>You currently have:</p>
+            <p id="amountInText">300$</p>
+        </div>
+        <div id="buttonInterface">
+            <div id="playingButtons">
+                <button id="hitButton">Hit</button>
+                <button id="stopButton">Stop</button>
+            </div>
+            <div id="amountAndStart">
+                <button id="dealButton">Deal</button>
+                <input id="dealAmountInput" size="30" value="How much money to bet"/>
+            </div>
+        </div>
+    </div>
     <script src="index.js"></script>
 </body>
 </html>
