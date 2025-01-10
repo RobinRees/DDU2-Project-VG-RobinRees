@@ -29,7 +29,7 @@ function shuffleDeck(deck) {
     return deck;
 }
 
-function dealCard (deck, CardGridId) {
+function dealCard (deck, gridId) {
     if (deck.length === 0) {
         alert("Kortleken är slut");
         return;
@@ -37,17 +37,48 @@ function dealCard (deck, CardGridId) {
 
     const card = deck.pop();
     const suitSymbols = { Hearts: '♥', Spades: '♠', Diamonds: '♦', Clubs: '♣' };
-    const playerCardGrid = document.getElementById("playerCardGrid");
+    const cardGrid = document.getElementById(gridId);
 
     const cardElement = document.createElement("div");
     cardElement.classList.add("card", card.suit.toLowerCase());
     cardElement.innerHTML = `<div class="value">${card.value}</div><div class="suit">${suitSymbols[card.suit]}</div>`;
 
-    playerCardGrid.appendChild(cardElement);
+    cardGrid.appendChild(cardElement);
 }
+
+function startGame(deck) {
+    const playerGridId = "playerCardGrid";
+    const dealerGridId = "dealerCardGrid";
+    let i = 0;
+
+    function dealNextCardTimer() {
+        if (i < 4) {
+            if (i % 2 === 0) {
+                dealCard(deck, dealerGridId);
+            } else {
+                dealCard(deck, playerGridId);
+            }
+            i++;
+            setTimeout(dealNextCardTimer, 400);
+        }
+    }
+    dealNextCardTimer();
+}
+
+document.getElementById("dealButton").addEventListener("click", () =>{
+    startGame(deck);
+})
 
 const deck = shuffleDeck(createDeck());
 
 document.getElementById("hitButton").addEventListener("click", () => {
     dealCard(deck, "playerCardGrid");
 });
+
+
+/*
+function calculateScore () {
+    const playerScoreAmount = document.getElementById("playerScoreAmount");
+    const 
+}
+*/
