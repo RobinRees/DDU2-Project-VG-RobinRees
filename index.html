@@ -9,7 +9,6 @@
     
 <body>
     <div id="dealer">
-        <div id="deckContainer"></div>
 
         <div id="dealerCardGrid">
         </div>
@@ -28,8 +27,16 @@
                 <button id="stopButton">Stop</button>
             </div>
             <div id="amountAndStart">
-                <button id="dealButton">Deal</button>
-                <input id="dealAmountInput" size="30" value="How much money to bet"/>
+                <div id="setAmount">
+                    <button>30$</button>
+                    <button>60$</button>
+                    <button>100$</button>
+                </div>
+                <div id="customAmount">
+                    <button id="dealButton">Bet custom amount</button>
+                    <input id="dealAmountInput" size="30" value="How much money to bet"/>
+                </div>
+                
             </div>
         </div>
     </div>
