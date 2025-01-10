@@ -76,6 +76,8 @@ function startGame(deck) {
 
 document.getElementById("dealButton").addEventListener("click", () =>{
     startGame(deck);
+    const amountAndStartPanel = document.getElementById("amountAndStart");
+    amountAndStartPanel.style.display = "none";
 })
 
 const deck = shuffleDeck(createDeck());
