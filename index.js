@@ -46,8 +46,12 @@ function dealCard (deck, gridId) {
 
     cardGrid.appendChild(cardElement);
 
-    if (gridId ==="playerCardGrid") {
-        calculateScore();
+    if (gridId === "playerCardGrid") {
+        calculateScorePlayer();
+    }
+
+    if (gridId === "dealerCardGrid") {
+        calculateScoreDealer();
     }
 }
 
@@ -81,7 +85,7 @@ document.getElementById("hitButton").addEventListener("click", () => {
 });
 
 
-function calculateScore (gridId) {
+function calculateScorePlayer () {
     const playerCards = document.querySelectorAll("#playerCardGrid .card");
     let totalPoints = 0;
     const playerScoreAmount = document.getElementById("playerScoreAmount");
@@ -91,5 +95,34 @@ function calculateScore (gridId) {
         totalPoints += stringToNumber;
         playerScoreAmount.textContent = totalPoints;
 
+        if (totalPoints === 21) {
+            playerScoreAmount.textContent = "BJ"
+        }      
+
+        if (totalPoints > 21) {
+            playerScoreAmount.textContent = "Bust";
+        }
+
+    }
+}
+
+function calculateScoreDealer() {
+    const dealerCards = document.querySelectorAll("#dealerCardGrid  .card");
+    let totalPoints = 0;
+    const dealerScoreAmount = document.getElementById("dealerScoreAmount");
+
+
+    for (let i = 0; i < dealerCards.length; i++) {
+        const stringToNumber = Number(dealerCards[i].dataset.points);
+        totalPoints += stringToNumber;
+        dealerScoreAmount.textContent = totalPoints;
+
+        if (totalPoints === 21) {
+            dealerScoreAmount.textContent = "BJ"
+        }
+
+        if (totalPoints > 21) {
+            dealerScoreAmount.textContent = "Bust";
+        }
     }
 }
