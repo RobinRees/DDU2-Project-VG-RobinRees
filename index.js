@@ -3,7 +3,7 @@
 function createDeck() {
     const suits = ["Hearts", "Spades", "Diamonds", "Clubs"];
     const values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
-    const points = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "10", "10", "10", [1, 11]];
+    const points = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "10", "10", "10", "11"/*[1, 11]*/];
 
     const deck = [];
 
@@ -42,8 +42,13 @@ function dealCard (deck, gridId) {
     const cardElement = document.createElement("div");
     cardElement.classList.add("card", card.suit.toLowerCase());
     cardElement.innerHTML = `<div class="value">${card.value}</div><div class="suit">${suitSymbols[card.suit]}</div>`;
+    cardElement.dataset.points = card.points;
 
     cardGrid.appendChild(cardElement);
+
+    if (gridId ==="playerCardGrid") {
+        calculateScore();
+    }
 }
 
 function startGame(deck) {
@@ -76,9 +81,15 @@ document.getElementById("hitButton").addEventListener("click", () => {
 });
 
 
-/*
-function calculateScore () {
+function calculateScore (gridId) {
+    const playerCards = document.querySelectorAll("#playerCardGrid .card");
+    let totalPoints = 0;
     const playerScoreAmount = document.getElementById("playerScoreAmount");
-    const 
+
+    for (let i = 0; i < playerCards.length; i++) {
+        const stringToNumber = Number(playerCards[i].dataset.points);
+        totalPoints += stringToNumber;
+        playerScoreAmount.textContent = totalPoints;
+
+    }
 }
-*/
