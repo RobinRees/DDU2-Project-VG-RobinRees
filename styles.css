@@ -57,6 +57,17 @@ body {
     margin-left: auto;
 }
 
+#dealerScoreBox, #playerScoreBox {
+    width: 200px;
+    height: 100px;
+    background-color: #000;
+    color: white;   
+}
+
+#dealerScoreBox p, #playerScoreBox p {
+    margin: 0px;
+}
+
 
 #amountOfMoney {
     height: 150px;
