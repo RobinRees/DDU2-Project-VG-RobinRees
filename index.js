@@ -213,8 +213,9 @@ function checkWinner() {
 
     setTimeout(() => {
         notification.style.display = "none";
-    }, 3000);
+        resetDeck();
+    }, 4000);
 
 
-    resetDeck();
+
 }
