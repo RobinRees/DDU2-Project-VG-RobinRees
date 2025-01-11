@@ -1,6 +1,7 @@
 const notification = document.getElementById("notificationParagraph");
 const amountAndStartPanel = document.getElementById("amountAndStart");
 const dealerScoreAmount = document.getElementById("dealerScoreAmount");
+const playerScoreAmount = document.getElementById("playerScoreAmount");
 
 function createDeck() {
     const suits = ["Hearts", "Spades", "Diamonds", "Clubs"];
@@ -108,7 +109,6 @@ document.getElementById("stopButton").addEventListener("click", () => {
 function calculateScorePlayer () {
     const playerCards = document.querySelectorAll("#playerCardGrid .card");
     let totalPoints = 0;
-    const playerScoreAmount = document.getElementById("playerScoreAmount");
     const playingButtons = document.getElementById("playingButtons");
 
     for (let i = 0; i < playerCards.length; i++) {
@@ -159,6 +159,17 @@ function calculateScoreDealer() {
             dealerScoreAmount.textContent = "Bust";
             notification.textContent = "dealer Bust, you won (amount)"
             notification.style.display = "block";
+
+            setTimeout(() => {
+                notification.textContent = "Place a new Bet to play again";
+                amountAndStartPanel.style.display = "block";
+            }, 1500);
+
+            setTimeout(() => {
+                notification.style.display = "none";
+            }, 3000);
+
+            resetDeck();
             
         }
     }
