@@ -81,13 +81,6 @@ function startGame(deck) {
     dealNextCardTimer();
 }
 
-document.getElementById("dealButton").addEventListener("click", () =>{
-    startGame(deck);
-    amountAndStartPanel.style.display = "none";
-    const playingButtons = document.getElementById("playingButtons");
-    playingButtons.style.display = "block";
-})
-
 const deck = shuffleDeck(createDeck());
 
 document.getElementById("hitButton").addEventListener("click", () => {
@@ -231,3 +224,15 @@ function startGameWithBet (betAmount) {
     const playingButtons = document.getElementById("playingButtons");
     playingButtons.style.display = "block";
 }
+
+document.getElementById("bet30").addEventListener("click", () => {
+    startGameWithBet(30);
+});
+
+document.getElementById("bet60").addEventListener("click", () => {
+    startGameWithBet(60);
+});
+
+document.getElementById("bet100").addEventListener("click", () => {
+    startGameWithBet(100);
+});
