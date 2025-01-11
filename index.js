@@ -2,6 +2,9 @@ const notification = document.getElementById("notificationParagraph");
 const amountAndStartPanel = document.getElementById("amountAndStart");
 const dealerScoreAmount = document.getElementById("dealerScoreAmount");
 const playerScoreAmount = document.getElementById("playerScoreAmount");
+let playerMoney = 300;
+const amountInText = document.getElementById("amountInText");
+amountInText.textContent = `${playerMoney}$`
 let currentBet = 0;
 
 function createDeck() {
