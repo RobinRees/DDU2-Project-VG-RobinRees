@@ -195,8 +195,11 @@ function resetDeck () {
 function checkWinner() {
     const playerScore = playerScoreAmount.textContent;
     const dealerScore = dealerScoreAmount.textContent;
-
-    if (playerScore === "BJ" && dealerScore !== "BJ") {
+    if (dealerScore === "Bust") {
+        notification.textContent = "dealer Bust, you won (amount)";
+    } else if (playerScore === "Bust") {
+        notification.textContent = "You Bust, dealer won amount";
+    } else if (playerScore === "BJ" && dealerScore !== "BJ") {
         notification.textContent = "Blackjack, you won (amount)";
     } else if (dealerScore === "BJ" && playerScore !== "Bj") {
         notification.textContent = "Dealer has Blackjack! You lost (amount)";
