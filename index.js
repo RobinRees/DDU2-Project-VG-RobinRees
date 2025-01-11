@@ -156,24 +156,10 @@ function calculateScoreDealer() {
 
         if (totalPoints === 21) {
             dealerScoreAmount.textContent = "BJ"
-        }
-
-        if (totalPoints > 21) {
+        } else if (totalPoints > 21) {
             dealerScoreAmount.textContent = "Bust";
-            notification.textContent = "dealer Bust, you won (amount)"
-            notification.style.display = "block";
-
-            setTimeout(() => {
-                notification.textContent = "Place a new Bet to play again";
-                amountAndStartPanel.style.display = "block";
-            }, 1500);
-
-            setTimeout(() => {
-                notification.style.display = "none";
-            }, 3000);
-
-            resetDeck();
-            
+        } else {
+            dealerScoreAmount.textContent = totalPoints;
         }
     }
 }
