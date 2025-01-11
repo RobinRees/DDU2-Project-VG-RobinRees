@@ -149,3 +149,7 @@ button:hover {
 #playingButtons {
     display: none;
 }
+
+#dealAmountInput {
+    display: none;
+}

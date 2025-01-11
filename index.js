@@ -236,3 +236,10 @@ document.getElementById("bet60").addEventListener("click", () => {
 document.getElementById("bet100").addEventListener("click", () => {
     startGameWithBet(100);
 });
+
+document.getElementById("customButton").addEventListener("click", () => {
+    const customAmountInput = document.getElementById("dealAmountInput");
+    customAmountInput.style.display = "inline-block";
+    
+
+});
