@@ -1,4 +1,4 @@
-
+const notification = document.getElementById("notificationParagraph");
 
 function createDeck() {
     const suits = ["Hearts", "Spades", "Diamonds", "Clubs"];
@@ -91,6 +91,7 @@ function calculateScorePlayer () {
     const playerCards = document.querySelectorAll("#playerCardGrid .card");
     let totalPoints = 0;
     const playerScoreAmount = document.getElementById("playerScoreAmount");
+    const playingButtons = document.getElementById("playingButtons");
 
     for (let i = 0; i < playerCards.length; i++) {
         const stringToNumber = Number(playerCards[i].dataset.points);
@@ -103,6 +104,19 @@ function calculateScorePlayer () {
 
         if (totalPoints > 21) {
             playerScoreAmount.textContent = "Bust";
+            notification.textContent = "Bust, you lost (amount)";
+            playingButtons.style.display = "none";
+            notification.style.display = "block"
+
+            setTimeout(() => {
+                notification.textContent = "Place a new Bet to try again";
+            }, 1500);
+
+            setTimeout(() => {
+                notification.style.display = "none";
+            }, 3000);
+
+            resetDeck();
         }
 
     }
@@ -125,6 +139,22 @@ function calculateScoreDealer() {
 
         if (totalPoints > 21) {
             dealerScoreAmount.textContent = "Bust";
+            notification.textContent = "dealer Bust, you won (amount)"
+            notification.style.display = "block";
+            
         }
+    }
+}
+
+function resetDeck () {
+    document.getElementById("playerCardGrid").innerHTML = "";
+    document.getElementById("dealerCardGrid").innerHTML = "";
+
+    deck.length = 0;
+    const newDeck = createDeck();
+    const shuffledDeck = shuffleDeck(newDeck);
+
+    for (let i = 0; i < shuffledDeck.length; i++) {
+        deck.push(shuffledDeck[i]);
     }
 }
