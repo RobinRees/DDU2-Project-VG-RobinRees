@@ -2,6 +2,7 @@ const notification = document.getElementById("notificationParagraph");
 const amountAndStartPanel = document.getElementById("amountAndStart");
 const dealerScoreAmount = document.getElementById("dealerScoreAmount");
 const playerScoreAmount = document.getElementById("playerScoreAmount");
+let currentBet = 0;
 
 function createDeck() {
     const suits = ["Hearts", "Spades", "Diamonds", "Clubs"];
