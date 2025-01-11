@@ -1,4 +1,6 @@
 const notification = document.getElementById("notificationParagraph");
+const amountAndStartPanel = document.getElementById("amountAndStart");
+const dealerScoreAmount = document.getElementById("dealerScoreAmount");
 
 function createDeck() {
     const suits = ["Hearts", "Spades", "Diamonds", "Clubs"];
@@ -76,8 +78,9 @@ function startGame(deck) {
 
 document.getElementById("dealButton").addEventListener("click", () =>{
     startGame(deck);
-    const amountAndStartPanel = document.getElementById("amountAndStart");
     amountAndStartPanel.style.display = "none";
+    const playingButtons = document.getElementById("playingButtons");
+    playingButtons.style.display = "block";
 })
 
 const deck = shuffleDeck(createDeck());
@@ -86,6 +89,21 @@ document.getElementById("hitButton").addEventListener("click", () => {
     dealCard(deck, "playerCardGrid");
 });
 
+document.getElementById("stopButton").addEventListener("click", () => {
+    const playingButtons = document.getElementById("playingButtons");
+    playingButtons.style.display = "none";
+
+    function dealerDrawCard () {
+        if (Number(dealerScoreAmount.textContent) < 17) {
+        setTimeout(dealerDrawCard, 1000);
+        dealCard(deck, "dealerCardGrid");
+
+        }
+        
+    }
+
+    dealerDrawCard();
+});
 
 function calculateScorePlayer () {
     const playerCards = document.querySelectorAll("#playerCardGrid .card");
@@ -110,6 +128,7 @@ function calculateScorePlayer () {
 
             setTimeout(() => {
                 notification.textContent = "Place a new Bet to try again";
+                amountAndStartPanel.style.display = "block";
             }, 1500);
 
             setTimeout(() => {
@@ -125,7 +144,6 @@ function calculateScorePlayer () {
 function calculateScoreDealer() {
     const dealerCards = document.querySelectorAll("#dealerCardGrid  .card");
     let totalPoints = 0;
-    const dealerScoreAmount = document.getElementById("dealerScoreAmount");
 
 
     for (let i = 0; i < dealerCards.length; i++) {
