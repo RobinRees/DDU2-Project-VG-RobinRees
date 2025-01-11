@@ -96,9 +96,12 @@ document.getElementById("stopButton").addEventListener("click", () => {
 
     function dealerDrawCard () {
         if (Number(dealerScoreAmount.textContent) < 17) {
-        setTimeout(dealerDrawCard, 1000);
-        dealCard(deck, "dealerCardGrid");
-
+            setTimeout(() => {
+                dealCard(deck, "dealerCardGrid");
+                dealerDrawCard();
+            }, 1000);
+        } else {
+            checkWinner();
         }
         
     }
@@ -186,4 +189,43 @@ function resetDeck () {
     for (let i = 0; i < shuffledDeck.length; i++) {
         deck.push(shuffledDeck[i]);
     }
+}
+
+
+function checkWinner() {
+    const playerScore = playerScoreAmount.textContent;
+    const dealerScore = dealerScoreAmount.textContent;
+
+    if (playerScore === "BJ" && dealerScore !== "BJ") {
+        notification.textContent = "Blackjack, you won (amount)";
+    } else if (dealerScore === "BJ" && playerScore !== "Bj") {
+        notification.textContent = "Dealer has Blackjack! You lost (amount)";
+    } else if (playerScore === "BJ" && dealerScore === "BJ") {
+        notification.textContent = "Both have Blackjack! It's a tie";
+    } else {
+        const playerPoints = Number(playerScore);
+        const dealerPoints = Number(dealerScore);
+
+        if (playerPoints > dealerPoints) {
+            notification.textContent = "You Won (amount)";
+        } else if (playerPoints < dealerPoints) {
+            notification.textContent = "Dealer Won, you lost (amount)";
+        } else {
+            notification.textContent = "Its a tie, you get (amount) back";
+        }
+    }
+
+    notification.style.display = "block";
+
+    setTimeout(() => {
+        notification.textContent = "Place a new Bet to play again";
+        amountAndStartPanel.style.display = "block";
+    }, 1500);
+
+    setTimeout(() => {
+        notification.style.display = "none";
+    }, 3000);
+
+
+    resetDeck();
 }
