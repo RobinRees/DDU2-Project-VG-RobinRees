@@ -220,3 +220,11 @@ function checkWinner() {
 
 
 }
+
+function startGameWithBet (betAmount) {
+    currentBet = betAmount;
+    startGame(deck);
+    amountAndStartPanel.style.display = "none";
+    const playingButtons = document.getElementById("playingButtons");
+    playingButtons.style.display = "block";
+}
