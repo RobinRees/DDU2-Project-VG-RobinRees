@@ -128,7 +128,6 @@ function calculateScorePlayer () {
 
             setTimeout(() => {
                 notification.textContent = "Place a new Bet to try again";
-                amountAndStartPanel.style.display = "block";
             }, 1500);
 
             setTimeout(() => {
@@ -136,6 +135,7 @@ function calculateScorePlayer () {
             }, 3000);
 
             resetDeck();
+            amountAndStartPanel.style.display = "block";
         }
 
     }
@@ -205,12 +205,12 @@ function checkWinner() {
 
     setTimeout(() => {
         notification.textContent = "Place a new Bet to play again";
-        amountAndStartPanel.style.display = "block";
     }, 1500);
 
     setTimeout(() => {
         notification.style.display = "none";
         resetDeck();
+        amountAndStartPanel.style.display = "block";
     }, 4000);
 
 
