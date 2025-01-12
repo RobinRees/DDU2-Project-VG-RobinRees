@@ -117,14 +117,15 @@ function calculateScorePlayer () {
         playerScoreAmount.textContent = totalPoints;
 
         if (totalPoints === 21) {
-            playerScoreAmount.textContent = "BJ"
-        }      
-
-        if (totalPoints > 21) {
+            playerScoreAmount.textContent = "BJ";
+        } else if (totalPoints > 21) {
             playerScoreAmount.textContent = "Bust";
-            notification.textContent = "Bust, you lost (amount)";
+            notification.textContent = `Bust! You lost ${currentBet}$`;
+            playerMoney -= currentBet;
+            amountInText.textContent = `${playerMoney}$`;
+
             playingButtons.style.display = "none";
-            notification.style.display = "block"
+            notification.style.display = "block";
 
             setTimeout(() => {
                 notification.textContent = "Place a new Bet to try again";
@@ -132,10 +133,11 @@ function calculateScorePlayer () {
 
             setTimeout(() => {
                 notification.style.display = "none";
+                resetDeck();
+                amountAndStartPanel.style.display = "block";
             }, 3000);
-
-            resetDeck();
-            amountAndStartPanel.style.display = "block";
+        } else {
+            playerScoreAmount.textContent = totalPoints;
         }
 
     }
