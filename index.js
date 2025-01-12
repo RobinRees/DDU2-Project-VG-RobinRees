@@ -178,14 +178,23 @@ function resetDeck () {
 function checkWinner() {
     const playerScore = playerScoreAmount.textContent;
     const dealerScore = dealerScoreAmount.textContent;
+    let payout = 0;
+
+
     if (dealerScore === "Bust") {
-        notification.textContent = "dealer Bust, you won (amount)";
+        payout = currentBet * 2;
+        playerMoney += payout;
+        notification.textContent = `Dealer Bust! you won ${payout}$`;
     } else if (playerScore === "Bust") {
-        notification.textContent = "You Bust, dealer won amount";
+        playerMoney -= currentBet;
+        notification.textContent = `You Bust! you lost ${currentBet}$`;
     } else if (playerScore === "BJ" && dealerScore !== "BJ") {
-        notification.textContent = "Blackjack, you won (amount)";
+        payout = currentBet * 2.5;
+        playerMoney += payout;
+        notification.textContent = `Blackjack! You won ${payout}$`;
     } else if (dealerScore === "BJ" && playerScore !== "Bj") {
-        notification.textContent = "Dealer has Blackjack! You lost (amount)";
+        playerMoney -= currentBet;
+        notification.textContent = `Dealer has Blackjack! You lost ${currentBet}$`;
     } else if (playerScore === "BJ" && dealerScore === "BJ") {
         notification.textContent = "Both have Blackjack! It's a tie";
     } else {
@@ -193,13 +202,18 @@ function checkWinner() {
         const dealerPoints = Number(dealerScore);
 
         if (playerPoints > dealerPoints) {
-            notification.textContent = "You Won (amount)";
+            payout = currentBet * 2;
+            playerMoney += payout;
+            notification.textContent = `You won ${payout}$`;
         } else if (playerPoints < dealerPoints) {
-            notification.textContent = "Dealer Won, you lost (amount)";
+            playerMoney -= currentBet;
+            notification.textContent = `Dealer won! You lost ${currentBet}$`;
         } else {
-            notification.textContent = "Its a tie, you get (amount) back";
+            notification.textContent = `It's a tie! You get back ${currentBet}$`;
         }
     }
+
+    amountInText.textContent = `${playerMoney}$`
 
     notification.style.display = "block";
 
@@ -240,6 +254,16 @@ document.getElementById("bet100").addEventListener("click", () => {
 document.getElementById("customButton").addEventListener("click", () => {
     const customAmountInput = document.getElementById("dealAmountInput");
     customAmountInput.style.display = "inline-block";
+
+    customAmountInput.addEventListener("change", () => {
+        const customAmount = Number(customAmountInput.value);
+        if (customAmount > 0) {
+            startGameWithBet(customAmount);
+            customAmountInput.style.display = "none";
+        } else {
+            alert("Please enter a valid amount.")
+        }
+    })
     
 
 });
