@@ -25,6 +25,12 @@ body {
     background-color: white;
 }
 
+.hiddenCard {
+    background-color: gray;
+    color: transparent;
+    border: 2px solid black;
+}
+
 .hearts, .diamonds {
     color: red;
 }
@@ -88,7 +94,7 @@ body {
 }
 
 #buttonInterface {
-    height: 200px;
+    height: 100px;
     width: 500px;
     display: flex;
     align-items: center;
