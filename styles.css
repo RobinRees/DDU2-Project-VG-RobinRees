@@ -178,3 +178,9 @@ button:hover {
     color: white;
     border-radius: 5px;
 }
+
+.hiddenCard {
+    background-color: blue;
+    color: transparent;
+    position: relative;
+}

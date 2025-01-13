@@ -36,30 +36,33 @@ function shuffleDeck(deck) {
     return deck;
 }
 
-function dealCard (deck, gridId) {
-    if (deck.length === 0) {
-        alert("Kortleken är slut");
-        return;
-    }
-
+function dealCard (deck, gridId, isHidden = false) {
     const card = deck.pop();
     const suitSymbols = { Hearts: '♥', Spades: '♠', Diamonds: '♦', Clubs: '♣' };
     const cardGrid = document.getElementById(gridId);
 
     const cardElement = document.createElement("div");
-    cardElement.classList.add("card", card.suit.toLowerCase());
-    cardElement.innerHTML = `<div class="value">${card.value}</div><div class="suit">${suitSymbols[card.suit]}</div>`;
-    cardElement.dataset.points = card.points;
+    cardElement.classList.add("card");
+
+    if (isHidden) {
+        cardElement.classList.add("hiddenCard")
+        cardElement.innerHTML = `<div class="back"></div>`;
+        cardElement.dataset.hiddenPoints = card.points;
+        cardElement.dataset.suit = suitSymbols[card.suit];
+        cardElement.dataset.value = card.value;
+    } else {
+        cardElement.innerHTML = `<div class="value">${card.value}</div><div class="suit">${suitSymbols[card.suit]}</div>`;
+        cardElement.dataset.points = card.points;
+    }
 
     cardGrid.appendChild(cardElement);
 
     if (gridId === "playerCardGrid") {
         calculateScorePlayer();
-    }
-
-    if (gridId === "dealerCardGrid") {
+    } else if (gridId === "dealerCardGrid") {
         calculateScoreDealer();
     }
+    return card;
 }
 
 function startGame(deck) {
@@ -68,15 +71,19 @@ function startGame(deck) {
     let i = 0;
 
     function dealNextCardTimer() {
-        if (i < 4) {
-            if (i % 2 === 0) {
-                dealCard(deck, dealerGridId);
-            } else {
-                dealCard(deck, playerGridId);
-            }
-            i++;
-            setTimeout(dealNextCardTimer, 400);
+        if (i === 0) {
+            dealCard(deck, dealerGridId);
+        } else if (i === 1) {
+            dealCard(deck, playerGridId);
+        } else if (i === 2) {
+            dealCard(deck, dealerGridId, true);
+        } else if (i === 3) {
+            dealCard(deck, playerGridId);
+        } else {
+            return;
         }
+        i++;
+        setTimeout(dealNextCardTimer, 400);
     }
     dealNextCardTimer();
 }
@@ -91,10 +98,13 @@ document.getElementById("stopButton").addEventListener("click", () => {
     const playingButtons = document.getElementById("playingButtons");
     playingButtons.style.display = "none";
 
+    revealHiddenCard();
+
     function dealerDrawCard () {
         if (Number(dealerScoreAmount.textContent) < 17) {
             setTimeout(() => {
                 dealCard(deck, "dealerCardGrid");
+                calculateScoreDealer;
                 dealerDrawCard();
             }, 1000);
         } else {
@@ -163,7 +173,7 @@ function calculateScorePlayer () {
 }
 
 function calculateScoreDealer() {
-    const dealerCards = document.querySelectorAll("#dealerCardGrid  .card");
+    const dealerCards = document.querySelectorAll("#dealerCardGrid  .card:not(.hiddenCard)");
     const totalPoints = calculateAces(dealerCards);
 
 
@@ -264,7 +274,7 @@ function checkWinner() {
 
 function startGameWithBet (betAmount) {
     if (betAmount > playerMoney) {
-        alert("You cannot bet more than your current money.");
+        alert("Not enough money to place this bet.");
         return;
     }
 
@@ -314,4 +324,19 @@ function showLossScreen () {
     loseScreen.appendChild(restartButton);
 
     document.body.appendChild(loseScreen);
+}
+
+function revealHiddenCard () {
+    const hiddenCard = document.querySelector(".hiddenCard");
+    if (hiddenCard) {
+        const points = hiddenCard.dataset.hiddenPoints;
+        const suit = hiddenCard.dataset.suit;
+        const value = hiddenCard.dataset.value;
+
+        hiddenCard.classList.remove("hiddenCard");
+        hiddenCard.innerHTML = `<div class="value">${value}</div><div class="suit">${suit}</div>`;
+        hiddenCard.dataset.points = points;
+
+        calculateScoreDealer();
+    }
 }
