@@ -25,6 +25,12 @@ body {
     background-color: white;
 }
 
+.hiddenCard {
+    background-color: gray;
+    color: transparent;
+    border: 2px solid black;
+}
+
 .hearts, .diamonds {
     color: red;
 }
