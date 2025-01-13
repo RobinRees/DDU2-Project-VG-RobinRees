@@ -198,7 +198,7 @@ function checkWinner() {
 
 
     if (dealerScore === "Bust") {
-        payout = currentBet * 2;
+        payout = currentBet;
         playerMoney += payout;
         notification.textContent = `Dealer Bust! you won ${payout}$`;
     } else if (playerScore === "Bust") {
@@ -209,7 +209,7 @@ function checkWinner() {
             return;
         }
     } else if (playerScore === "BJ" && dealerScore !== "BJ") {
-        payout = currentBet * 2.5;
+        payout = currentBet * 1.5;
         playerMoney += payout;
         notification.textContent = `Blackjack! You won ${payout}$`;
     } else if (dealerScore === "BJ" && playerScore !== "Bj") {
@@ -228,7 +228,7 @@ function checkWinner() {
         const dealerPoints = Number(dealerScore);
 
         if (playerPoints > dealerPoints) {
-            payout = currentBet * 2;
+            payout = currentBet;
             playerMoney += payout;
             notification.textContent = `You won ${payout}$`;
         } else if (playerPoints < dealerPoints) {
@@ -263,6 +263,11 @@ function checkWinner() {
 }
 
 function startGameWithBet (betAmount) {
+    if (betAmount > playerMoney) {
+        alert("You cannot bet more than your current money.");
+        return;
+    }
+
     currentBet = betAmount;
     startGame(deck);
     amountAndStartPanel.style.display = "none";
@@ -282,21 +287,8 @@ document.getElementById("bet100").addEventListener("click", () => {
     startGameWithBet(100);
 });
 
-document.getElementById("customButton").addEventListener("click", () => {
-    const customAmountInput = document.getElementById("dealAmountInput");
-    customAmountInput.style.display = "inline-block";
-
-    customAmountInput.addEventListener("change", () => {
-        const customAmount = Number(customAmountInput.value);
-        if (customAmount > 0) {
-            startGameWithBet(customAmount);
-            customAmountInput.style.display = "none";
-        } else {
-            alert("Please enter a valid amount.")
-        }
-    })
-    
-
+document.getElementById("allInButton").addEventListener("click", () => {
+    startGameWithBet(playerMoney);
 });
 
 function showLossScreen () {
