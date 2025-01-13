@@ -144,6 +144,11 @@ function calculateScorePlayer () {
             playingButtons.style.display = "none";
             notification.style.display = "block";
 
+            if (playerMoney <= 0) {
+                showLossScreen();
+                return;
+            }
+
             setTimeout(() => {
                 notification.textContent = "Place a new Bet to try again";
             }, 1500);
@@ -199,6 +204,10 @@ function checkWinner() {
     } else if (playerScore === "Bust") {
         playerMoney -= currentBet;
         notification.textContent = `You Bust! you lost ${currentBet}$`;
+        if (playerMoney <= 0) {
+            showLossScreen();
+            return;
+        }
     } else if (playerScore === "BJ" && dealerScore !== "BJ") {
         payout = currentBet * 2.5;
         playerMoney += payout;
@@ -206,6 +215,12 @@ function checkWinner() {
     } else if (dealerScore === "BJ" && playerScore !== "Bj") {
         playerMoney -= currentBet;
         notification.textContent = `Dealer has Blackjack! You lost ${currentBet}$`;
+
+
+        if (playerMoney <= 0) {
+            showLossScreen();
+            return;
+        }
     } else if (playerScore === "BJ" && dealerScore === "BJ") {
         notification.textContent = "Both have Blackjack! It's a tie";
     } else {
@@ -219,6 +234,11 @@ function checkWinner() {
         } else if (playerPoints < dealerPoints) {
             playerMoney -= currentBet;
             notification.textContent = `Dealer won! You lost ${currentBet}$`;
+
+            if (playerMoney <= 0) {
+                showLossScreen();
+                return;
+            }
         } else {
             notification.textContent = `It's a tie! You get back ${currentBet}$`;
         }
@@ -278,3 +298,28 @@ document.getElementById("customButton").addEventListener("click", () => {
     
 
 });
+
+function showLossScreen () {
+    const loseScreen = document.createElement("div");
+    loseScreen.id = "loseScreen";
+
+    const message = document.createElement("h1");
+    message.textContent = "You loose!";
+    loseScreen.appendChild(message);
+
+    const restartButton = document.createElement("button");
+    restartButton.textContent = "Restart";
+
+    restartButton.addEventListener("click", () => {
+        playerMoney = 300;
+        amountInText.textContent = `${playerMoney}$`;
+        resetDeck();
+        amountAndStartPanel.style.display = "block";
+        notification.style.display = "none";
+        document.body.removeChild(loseScreen);
+    });
+
+    loseScreen.appendChild(restartButton);
+
+    document.body.appendChild(loseScreen);
+}
