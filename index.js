@@ -10,7 +10,7 @@ let currentBet = 0;
 function createDeck() {
     const suits = ["Hearts", "Spades", "Diamonds", "Clubs"];
     const values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
-    const points = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "10", "10", "10", "11"];
+    const points = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "10", "10", "10", "11"/*[1, 11]*/];
 
     const deck = [];
 
@@ -36,10 +36,11 @@ function shuffleDeck(deck) {
     return deck;
 }
 
-
-
-function dealCard (deck, gridId, isHidden = false) {
-
+function dealCard (deck, gridId) {
+    if (deck.length === 0) {
+        alert("Kortleken är slut");
+        return;
+    }
 
     const card = deck.pop();
     const suitSymbols = { Hearts: '♥', Spades: '♠', Diamonds: '♦', Clubs: '♣' };
@@ -47,26 +48,37 @@ function dealCard (deck, gridId, isHidden = false) {
 
     const cardElement = document.createElement("div");
     cardElement.classList.add("card", card.suit.toLowerCase());
-
-    if (isHidden) {
-        cardElement.classList.add("hiddenCard");
-        cardElement.dataset.points = card.points;
-    } else {
-        cardElement.innerHTML = `<div class="value">${card.value}</div><div class="suit">${suitSymbols[card.suit]}</div>`;
-        cardElement.dataset.points = card.points;
-    }
+    cardElement.innerHTML = `<div class="value">${card.value}</div><div class="suit">${suitSymbols[card.suit]}</div>`;
+    cardElement.dataset.points = card.points;
 
     cardGrid.appendChild(cardElement);
+
+    if (gridId === "playerCardGrid") {
+        calculateScorePlayer();
+    }
+
+    if (gridId === "dealerCardGrid") {
+        calculateScoreDealer();
+    }
 }
 
 function startGame(deck) {
     const playerGridId = "playerCardGrid";
     const dealerGridId = "dealerCardGrid";
+    let i = 0;
 
-    dealCard(deck, dealerGridId);
-    dealCard(deck, playerGridId);
-    dealCard(deck, dealerGridId, true);
-    dealCard(deck, playerGridId);
+    function dealNextCardTimer() {
+        if (i < 4) {
+            if (i % 2 === 0) {
+                dealCard(deck, dealerGridId);
+            } else {
+                dealCard(deck, playerGridId);
+            }
+            i++;
+            setTimeout(dealNextCardTimer, 400);
+        }
+    }
+    dealNextCardTimer();
 }
 
 const deck = shuffleDeck(createDeck());
@@ -78,8 +90,6 @@ document.getElementById("hitButton").addEventListener("click", () => {
 document.getElementById("stopButton").addEventListener("click", () => {
     const playingButtons = document.getElementById("playingButtons");
     playingButtons.style.display = "none";
-
-    revealHiddenCard();
 
     function dealerDrawCard () {
         if (Number(dealerScoreAmount.textContent) < 17) {
@@ -96,31 +106,14 @@ document.getElementById("stopButton").addEventListener("click", () => {
     dealerDrawCard();
 });
 
-function calculateAces(cards) {
-    let totalPoints = 0;
-    let aceCount = 0;
-
-    for (let card of cards) {
-        const points = Number(card.dataset.points);
-        totalPoints += points;
-        if (card.dataset.points === "11") {
-            aceCount++;
-        }
-    }
-
-    while (totalPoints > 21 && aceCount > 0) {
-        totalPoints -= 10;
-        aceCount--;
-    }
-
-    return totalPoints;
-}
-
 function calculateScorePlayer () {
     const playerCards = document.querySelectorAll("#playerCardGrid .card");
-    const totalPoints = calculateAces(playerCards);
+    let totalPoints = 0;
     const playingButtons = document.getElementById("playingButtons");
 
+    for (let i = 0; i < playerCards.length; i++) {
+        const stringToNumber = Number(playerCards[i].dataset.points);
+        totalPoints += stringToNumber;
         playerScoreAmount.textContent = totalPoints;
 
         if (totalPoints === 21) {
@@ -143,23 +136,31 @@ function calculateScorePlayer () {
                 resetDeck();
                 amountAndStartPanel.style.display = "block";
             }, 3000);
-        } 
+        } else {
+            playerScoreAmount.textContent = totalPoints;
+        }
 
+    }
 }
 
 function calculateScoreDealer() {
     const dealerCards = document.querySelectorAll("#dealerCardGrid  .card");
-    const totalPoints = calculateAces(dealerCards);
+    let totalPoints = 0;
 
 
+    for (let i = 0; i < dealerCards.length; i++) {
+        const stringToNumber = Number(dealerCards[i].dataset.points);
+        totalPoints += stringToNumber;
         dealerScoreAmount.textContent = totalPoints;
 
         if (totalPoints === 21) {
             dealerScoreAmount.textContent = "BJ"
         } else if (totalPoints > 21) {
             dealerScoreAmount.textContent = "Bust";
-        } 
-    
+        } else {
+            dealerScoreAmount.textContent = totalPoints;
+        }
+    }
 }
 
 function resetDeck () {
@@ -268,16 +269,3 @@ document.getElementById("customButton").addEventListener("click", () => {
     
 
 });
-
-function revealHiddenCard () {
-    const hiddenCard = document.querySelector("#dealerCardGrid .hiddenCard");
-    if (hiddenCard) {
-        const suitSymbols = { Hearts: '♥', Spades: '♠', Diamonds: '♦', Clubs: '♣' };
-        const hiddenPoints = hiddenCard.dataset.hiddenPoints;
-
-        hiddenCard.classList.remove("hiddenCard");
-        hiddenCard.innerHTML = `<div class="value">${hiddenCard.dataset.value}</div><div class="suit">${suitSymbols[hiddenCard.dataset.suit]}</div>`;
-        hiddenCard.dataset.points = hiddenPoints;
-        calculateScoreDealer();
-    }
-}
