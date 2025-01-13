@@ -106,14 +106,31 @@ document.getElementById("stopButton").addEventListener("click", () => {
     dealerDrawCard();
 });
 
+function calculateAces(cards) {
+    let totalPoints = 0;
+    let aceCount = 0;
+
+    for (let card of cards) {
+        const points = Number(card.dataset.points);
+        totalPoints += points;
+        if (card.dataset.points === "11") {
+            aceCount++;
+        }
+    }
+
+    while (totalPoints > 21 && aceCount > 0) {
+        totalPoints -= 10;
+        aceCount--;
+    }
+
+    return totalPoints;
+}
+
 function calculateScorePlayer () {
     const playerCards = document.querySelectorAll("#playerCardGrid .card");
-    let totalPoints = 0;
+    const totalPoints = calculateAces(playerCards);
     const playingButtons = document.getElementById("playingButtons");
 
-    for (let i = 0; i < playerCards.length; i++) {
-        const stringToNumber = Number(playerCards[i].dataset.points);
-        totalPoints += stringToNumber;
         playerScoreAmount.textContent = totalPoints;
 
         if (totalPoints === 21) {
@@ -136,31 +153,23 @@ function calculateScorePlayer () {
                 resetDeck();
                 amountAndStartPanel.style.display = "block";
             }, 3000);
-        } else {
-            playerScoreAmount.textContent = totalPoints;
-        }
+        } 
 
-    }
 }
 
 function calculateScoreDealer() {
     const dealerCards = document.querySelectorAll("#dealerCardGrid  .card");
-    let totalPoints = 0;
+    const totalPoints = calculateAces(dealerCards);
 
 
-    for (let i = 0; i < dealerCards.length; i++) {
-        const stringToNumber = Number(dealerCards[i].dataset.points);
-        totalPoints += stringToNumber;
         dealerScoreAmount.textContent = totalPoints;
 
         if (totalPoints === 21) {
             dealerScoreAmount.textContent = "BJ"
         } else if (totalPoints > 21) {
             dealerScoreAmount.textContent = "Bust";
-        } else {
-            dealerScoreAmount.textContent = totalPoints;
-        }
-    }
+        } 
+    
 }
 
 function resetDeck () {
