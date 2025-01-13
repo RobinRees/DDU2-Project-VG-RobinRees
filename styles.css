@@ -93,7 +93,9 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    background-color: pink; 
+    border: 4px solid orange;
+    background-color: #0000003a;
+    border-bottom: none;
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -194,4 +196,18 @@ button:hover {
     background-repeat: no-repeat;
     background-size: cover;
     
+}
+
+#amountAndStart {
+    text-align: center;
+}
+
+#amountAndStart p {
+    padding: 0;
+    margin: 10px;
+}
+
+#setAmount button {
+    width: 100px;
+    height: 50px;
 }
