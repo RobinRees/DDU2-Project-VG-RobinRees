@@ -1,133 +1,156 @@
+@font-face {
+  font-family: "Jersey";
+  src: url(/font/Jersey15-Regular.ttf);
+}
+
 body {
-    margin: 0px;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
+  margin: 0px;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 #deckContainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .card {
-    width: 75px;
-    height: 120px;
-    border: 2px solid #000;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    text-align: center;
-    background-color: white;
+  width: 75px;
+  height: 120px;
+  border: 2px solid #000;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  text-align: center;
+  background-color: white;
 }
 
-.hearts, .diamonds {
-    color: red;
+.hearts,
+.diamonds {
+  color: red;
 }
 
-.spades, .clubs {
-    color: black;
+.spades,
+.clubs {
+  color: black;
 }
 
 #dealer {
-    height: 50%;
-    background-color: green;
-    border-bottom: 3px orange solid;
-    box-sizing: border-box;
+  height: 50%;
+  background-color: green;
+  border-bottom: 3px orange solid;
+  box-sizing: border-box;
 }
 
 #player {
-    height: 50%;
-    background-color: green;
-    box-sizing: border-box;
-
+  height: 50%;
+  background-color: green;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-#playerCardGrid, #dealerCardGrid {
-    background-color: black;
-    width: 750px;
-    height: 120px;
-    display: grid;
-    grid-template-columns: repeat(10, 75px);
-    margin-right: auto;
-    margin-left: auto;
+#playerCardGrid,
+#dealerCardGrid {
+  background-color: rgba(0, 0, 0, 0);
+  width: 750px;
+  height: 120px;
+  display: grid;
+  grid-template-columns: repeat(10, 75px);
+  margin-right: auto;
+  margin-left: auto;
+  border: solid orange 2px;
 }
 
-#dealerScoreBox, #playerScoreBox {
-    width: 200px;
-    height: 100px;
-    background-color: #000;
-    color: white;   
+#dealerScoreBox,
+#playerScoreBox {
+  width: 70px;
+  height: 70px;
+  background-color: #00000056;
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-family: "Jersey";
 }
 
-#dealerScoreBox p, #playerScoreBox p {
-    margin: 0px;
+#dealerScoreBox p,
+#playerScoreBox p {
+  margin: 0px;
 }
 
+#playerScoreAmount,
+#dealerScoreAmount {
+  font-size: 20px;
+}
 
 #amountOfMoney {
-    height: 150px;
-    background-color: rgba(0, 0, 0, 0.664);
-    width: 200px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
+  height: 150px;
+  background-color: rgba(0, 0, 0, 0.664);
+  width: 200px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 
-    font-size: 20;
-    text-align: center;
-    color: white;
+  font-size: 20;
+  text-align: center;
+  color: white;
 }
 
 #amountInText {
-    font-size: 50px;
-
+  font-size: 50px;
 }
 
 #buttonInterface {
-    height: 100px;
-    width: 500px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    border: 4px solid orange;
-    background-color: #0000003a;
-    border-bottom: none;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+  height: 100px;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 4px solid orange;
+  background-color: #0000003a;
+  border-bottom: none;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-#hitButton, #stopButton {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: 700;
-    line-height: 1.5;
-    background-color: black;
-    color: white;
-    border-radius: 99rem;
-    height: 100px;
-    width: 200px;
-    font-size: 50px;
+#hitButton,
+#stopButton {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 700;
+  line-height: 1.5;
+  background-color: black;
+  color: white;
+  border-radius: 99rem;
+  height: 100px;
+  width: 200px;
+  font-size: 50px;
 }
 
 #hitButton {
-    background-color: rgb(49, 233, 49);
+  background-color: rgb(49, 233, 49);
 }
 
 #hitButton:hover {
-    background-color: rgb(76, 204, 76);
+  background-color: rgb(76, 204, 76);
 }
 
 #stopButton {
-    background-color: red;
+  background-color: red;
 }
 
 /* #amountAndStart {
@@ -136,78 +159,95 @@ button:hover {
 
 */
 
-
 #notificationParagraph {
-    display: none;
-    margin: 0px;
-    background-color: #00000060;
-    width: 100%;
-    color: white;
-    font-size: 40px;
-    text-align: center;
-    position: absolute;
+  display: none;
+  margin: 0px;
+  background-color: #00000060;
+  width: 100%;
+  color: white;
+  font-size: 40px;
+  text-align: center;
+  position: absolute;
 }
 
 #playingButtons {
-    display: none;
+  display: none;
 }
 
 #dealAmountInput {
-    display: none;
+  display: none;
 }
 
 #loseScreen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(0, 0, 0, 0.8);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 1000;
 }
 
 #loseScreen button {
-    padding: 10px 20px;
-    font-size: 30px;
-    cursor: pointer;
-    border: none;
-    background-color: #ff3333;
-    color: white;
-    border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 30px;
+  cursor: pointer;
+  border: none;
+  background-color: #ff3333;
+  color: white;
+  border-radius: 5px;
 }
 
 .hiddenCard {
-    background-color: blue;
-    color: transparent;
-    position: relative;
+  background-color: blue;
+  color: transparent;
+  position: relative;
 }
 
 .hiddenCard .back {
-    background-image: url(/cardBack/card\ back\ red.png);
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    
+  background-image: url(/cardBack/card\ back\ red.png);
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #amountAndStart {
-    text-align: center;
+  text-align: center;
 }
 
 #amountAndStart p {
-    padding: 0;
-    margin: 10px;
+  padding: 0;
+  margin: 10px;
 }
 
 #setAmount button {
-    width: 100px;
-    height: 50px;
+  width: 100px;
+  height: 50px;
+}
+
+#externalLinks {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+#externalLinks a {
+  background-color: white;
+  text-decoration: none;
+  color: black;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+#externalLinks a:hover {
+  background-color: rgb(202, 202, 202);
 }

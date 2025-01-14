@@ -10,7 +10,7 @@ let currentBet = 0;
 function createDeck() {
     const suits = ["Hearts", "Spades", "Diamonds", "Clubs"];
     const values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
-    const points = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "10", "10", "10", "11"/*[1, 11]*/];
+    const points = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "10", "10", "10", "11"];
 
     const deck = [];
 
@@ -104,7 +104,7 @@ document.getElementById("stopButton").addEventListener("click", () => {
         if (Number(dealerScoreAmount.textContent) < 17) {
             setTimeout(() => {
                 dealCard(deck, "dealerCardGrid");
-                calculateScoreDealer;
+                calculateScoreDealer();
                 dealerDrawCard();
             }, 1000);
         } else {

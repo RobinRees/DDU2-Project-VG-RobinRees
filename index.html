@@ -1,52 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Black Jack</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-    
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
     <div id="dealer">
-        <div id="dealerScoreBox">
-            <p>Dealer has</p>
-            <p id="dealerScoreAmount"></p>
-        </div>
-        <div id="dealerCardGrid">
-        </div>
+      <div id="dealerCardGrid"></div>
+      <div id="dealerScoreBox">
+        <p>Dealer score:</p>
+        <p id="dealerScoreAmount"></p>
+      </div>
     </div>
     <p id="notificationParagraph">Notification</p>
     <div id="player">
-        <div id="playerScoreBox">
-            <p>Player has</p>
-            <p id="playerScoreAmount"></p>
-        
-        </div>
+      <div id="playerScoreBox">
+        <p>Player score:</p>
+        <p id="playerScoreAmount"></p>
+      </div>
 
-        <div id="playerCardGrid">
+      <div id="playerCardGrid"></div>
+      <div id="amountOfMoney">
+        <p>You currently have:</p>
+        <p id="amountInText"></p>
+      </div>
+      <div id="externalLinks">
+        <a
+          href="https://github.com/RobinRees/DDU2-Project-VG-RobinRees"
+          target="_blank"
+          >Github</a
+        >
+        <a>Webshare</a>
+      </div>
+
+      <div id="buttonInterface">
+        <div id="playingButtons">
+          <button id="hitButton">Hit</button>
+          <button id="stopButton">Hold</button>
         </div>
-        <div id="amountOfMoney">
-            <p>You currently have:</p>
-            <p id="amountInText"></p>
+        <div id="amountAndStart">
+          <p>Place your bet</p>
+          <div id="setAmount">
+            <button id="bet30">30$</button>
+            <button id="bet60">60$</button>
+            <button id="bet100">100$</button>
+            <button id="allInButton">All In</button>
+          </div>
         </div>
-        <div id="buttonInterface">
-            <div id="playingButtons">
-                <button id="hitButton">Hit</button>
-                <button id="stopButton">Hold</button>
-            </div>
-            <div id="amountAndStart">
-                <p>Place your bet</p>
-                <div id="setAmount">
-                    <button id="bet30">30$</button>
-                    <button id="bet60">60$</button>
-                    <button id="bet100">100$</button>
-                    <button id="allInButton">All In</button>
-                </div>
-                
-            </div>
-        </div>
+      </div>
     </div>
     <script src="index.js"></script>
-</body>
+  </body>
 </html>
