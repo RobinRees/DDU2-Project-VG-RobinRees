@@ -51,7 +51,8 @@ function dealCard (deck, gridId, isHidden = false) {
         cardElement.dataset.suit = suitSymbols[card.suit];
         cardElement.dataset.value = card.value;
     } else {
-        cardElement.innerHTML = `<div class="value">${card.value}</div><div class="suit">${suitSymbols[card.suit]}</div>`;
+        const suitClass = card.suit.toLowerCase();
+        cardElement.innerHTML = `<div class="value">${card.value}</div><div class="suit ${suitClass}">${suitSymbols[card.suit]}</div>`;
         cardElement.dataset.points = card.points;
     }
 
@@ -332,9 +333,16 @@ function revealHiddenCard () {
         const points = hiddenCard.dataset.hiddenPoints;
         const suit = hiddenCard.dataset.suit;
         const value = hiddenCard.dataset.value;
+        const suitClassMap = {
+            '♥': 'hearts',
+            '♦': 'diamonds',
+            '♠': 'spades',
+            '♣': 'clubs',
+        };
+        const suitClass = suitClassMap[suit];
 
         hiddenCard.classList.remove("hiddenCard");
-        hiddenCard.innerHTML = `<div class="value">${value}</div><div class="suit">${suit}</div>`;
+        hiddenCard.innerHTML = `<div class="value">${value}</div><div class="suit ${suitClass}">${suit}</div>`;
         hiddenCard.dataset.points = points;
 
         calculateScoreDealer();
